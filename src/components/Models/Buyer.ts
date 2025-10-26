@@ -1,4 +1,4 @@
-import { IBuyer, TPayment, ValidationErrors } from "../../../types/index.ts";
+import { IBuyer, TPayment, ValidationErrors } from "../../types/index.ts";
 
 export class Buyer {
   protected data: IBuyer = {
@@ -7,8 +7,6 @@ export class Buyer {
     phone: "",
     address: "",
   };
-
-  constructor() {}
 
   setData(data: IBuyer) {
     if (data.address !== "") {
@@ -34,20 +32,20 @@ export class Buyer {
     this.data.address = "";
   }
   validateData(): ValidationErrors {
-    let error: ValidationErrors = {};
+    const errors: ValidationErrors = {};
 
     if (this.data.email === "") {
-      error.email = "Email не заполнен";
+      errors.email = "Email не заполнен";
     }
     if (this.data.payment === TPayment.Default) {
-      error.payment = "Способ оплаты не выбран";
+      errors.payment = "Способ оплаты не выбран";
     }
     if (this.data.phone === "") {
-      error.phone = "Номер телефона не заполнен";
+      errors.phone = "Номер телефона не заполнен";
     }
     if (this.data.address === "") {
-      error.address = "Адрес не заполнен";
+      errors.address = "Адрес не заполнен";
     }
-    return error;
+    return errors;
   }
 }

@@ -1,10 +1,8 @@
-import { IProduct } from "../../../types/index.ts";
+import { IProduct } from "../../types/index.ts";
 
 export class Catalog {
   protected products: IProduct[] = [];
   protected currentProduct?: IProduct;
-
-  constructor() {}
 
   add(products: IProduct[]) {
     this.products = this.products.concat(products);

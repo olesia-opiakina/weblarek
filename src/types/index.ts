@@ -15,12 +15,12 @@ export enum TPayment {
   Card = "Card",
 }
 
-export type ValidationErrors = {
+export interface ValidationErrors {
   payment?: string;
   email?: string;
   phone?: string;
   address?: string;
-};
+}
 
 export interface IBuyer {
   payment: TPayment;

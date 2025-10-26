@@ -1,7 +1,7 @@
 import "./scss/styles.scss";
-import { Buyer } from "./components/base/Models/Buyer";
-import { Cart } from "./components/base/Models/Cart";
-import { Catalog } from "./components/base/Models/Catalog";
+import { Buyer } from "./components/Models/Buyer";
+import { Cart } from "./components/Models/Cart";
+import { Catalog } from "./components/Models/Catalog";
 import { apiProducts } from "./utils/data";
 import { IOrderResponse, IProduct, TPayment } from "./types";
 import { DataService } from "./components/base/DataService";
@@ -58,13 +58,21 @@ buyer.setData({
 const api = new Api(API_URL);
 const data = new DataService(api);
 
-data.getProducts().then(function (products: IProduct[]) {
-  catalog.add(products);
-  console.log("Массив товаров, добавленных с сервера: ", catalog.getList());
-});
+data
+  .getProducts()
+  .then(function (products: IProduct[]) {
+    catalog.add(products);
+    console.log("Массив товаров, добавленных с сервера: ", catalog.getList());
+  })
+  .catch(function (error) {
+    console.error("Ошибка при получении товаров", error);
+  });
 
 data
   .postOrder(buyer.getData(), cart.getList(), cart.getPrice())
   .then(function (response: IOrderResponse) {
     console.log("Номер заказа: ", response.id);
+  })
+  .catch(function (error) {
+    console.error("Ошибка номера заказа", error);
   });
